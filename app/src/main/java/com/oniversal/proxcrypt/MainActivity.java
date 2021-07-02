@@ -150,10 +150,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         });
 
         ExecuteElf("su -c");
-
-        loadAssets();
-        loadAssets64();
-
         socket = daemonPath;
     }
 
@@ -283,77 +279,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 Shell(socket);
             }
         }.start();
-    }
-
-    public void loadAssets() {
-        String filepath = Environment.getExternalStorageDirectory() + "/Android/data/.tyb";
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(filepath);
-            byte[] buffer = "DO NOT DELETE".getBytes();
-            fos.write(buffer, 0, buffer.length);
-            fos.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        String pathf = getFilesDir().toString() + "/sock";
-        try {
-            OutputStream myOutput = new FileOutputStream(pathf);
-            byte[] buffer = new byte[1024];
-            int length;
-            InputStream myInput = getAssets().open("sock");
-            while ((length = myInput.read(buffer)) > 0) {
-                myOutput.write(buffer, 0, length);
-            }
-            myInput.close();
-            myOutput.flush();
-            myOutput.close();
-
-        } catch (IOException e) {
-        }
-
-        daemonPath = getFilesDir().toString() + "/sock";
-
-        try {
-            Runtime.getRuntime().exec("chmod 777 " + daemonPath);
-        } catch (IOException e) {
-        }
-    }
-
-    public void loadAssets64() {
-        String pathf = getFilesDir().toString() + "/sock64";
-        try {
-            OutputStream myOutput = new FileOutputStream(pathf);
-            byte[] buffer = new byte[1024];
-            int length;
-            InputStream myInput = getAssets().open("sock64");
-            while ((length = myInput.read(buffer)) > 0) {
-                myOutput.write(buffer, 0, length);
-            }
-            myInput.close();
-            myOutput.flush();
-            myOutput.close();
-
-        } catch (IOException e) {
-        }
-
-        daemonPath64 = getFilesDir().toString() + "/sock64";
-
-        try {
-            Runtime.getRuntime().exec("chmod 777 " + daemonPath64);
-        } catch (IOException e) {
-        }
     }
 
 }

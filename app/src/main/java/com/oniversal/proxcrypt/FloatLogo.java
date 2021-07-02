@@ -67,11 +67,10 @@ public class FloatLogo extends Service implements View.OnClickListener {
 
         logoView = mFloatingView.findViewById(R.id.relativeLayoutParent);
         espView = mFloatingView.findViewById(R.id.espView);
-        loadAssets("proxcrypt32");
-        loadAssets("proxcrypt64");
+        loadAssets("pro32");
+        loadAssets("pro64");
         loadAssets("setting.toml");
         loadAssets("forwarding-rules.txt");
-        loadAssets("proxcrypt.sh");
         Init();
     }
 
@@ -284,17 +283,56 @@ public class FloatLogo extends Service implements View.OnClickListener {
                 if ( isBox.isChecked() && MainActivity.isproxy == true) {
                     setValue(String.valueOf(isBox.getText()), isBox.isChecked());
                     baca = true;
-                    tv.setText("Output :" + "\n" + runAsRoot(daemonPath + " connect proxy " + bin));
+                    runAsRoot("su -c " + binary + " --config " + " setting.toml" + " >/dev/null 2>&1 &");
+                    tv.setText(runAsRoot("echo -e '" +
+                            "░█████╗░███╗░░██╗██╗\n" +
+                            "██╔══██╗████╗░██║██║\n" +
+                            "██║░░██║██╔██╗██║██║\n" +
+                            "██║░░██║██║╚████║██║\n" +
+                            "╚█████╔╝██║░╚███║██║\n" +
+                            "░╚════╝░╚═╝░░╚══╝╚═╝\n" +
+                            "\n" +
+                            "██╗░░██╗██╗░░██╗███████╗░█████╗░████████╗\n" +
+                            "╚██╗██╔╝██║░░██║██╔════╝██╔══██╗╚══██╔══╝\n" +
+                            "░╚███╔╝░███████║█████╗░░███████║░░░██║░░░\n" +
+                            "░██╔██╗░██╔══██║██╔══╝░░██╔══██║░░░██║░░░\n" +
+                            "██╔╝╚██╗██║░░██║███████╗██║░░██║░░░██║░░░\n" +
+                            "╚═╝░░╚═╝╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝░░░╚═╝░░░\n" +
+                            "---------PROXY BYPASS ANONNIMOUS MODE--------\n" +
+                            "  █▀▀ █▀█ █▄░█ █▄░█ █▀▀ █▀▀ ▀█▀ █▀▀ █▀▄\n" +
+                            "  █▄▄ █▄█ █░▀█ █░▀█ ██▄ █▄▄ ░█░ ██▄ █▄▀\"'"));
+                    Rules.Proxy();
                     SettingValue(0, isBox.isChecked());
-                } else if (isBox.isChecked() && MainActivity.ispubg == true) {
-                    setValue(String.valueOf(MainActivity.ispubg),isBox.isChecked());
-                    SettingValue(2, isBox.isChecked());
-                    tv.setText("Output :" + "\n" + runAsRoot(daemonPath + " connect pubg " + bin));
+                }else if (isBox.isChecked() && MainActivity.ispubg == true){
+                    setValue(String.valueOf(isBox.getText()), isBox.isChecked());
+                    baca = true;
+                    runAsRoot("su -c " + binary + " --config " + " setting.toml" + " >/dev/null 2>&1 &");
+                    tv.setText(runAsRoot( "echo -e '" +
+                                    "██████╗░██╗░░░██╗██████╗░░██████╗░\n" +
+                                    "██╔══██╗██║░░░██║██╔══██╗██╔════╝░\n" +
+                                    "██████╔╝██║░░░██║██████╦╝██║░░██╗░\n" +
+                                    "██╔═══╝░██║░░░██║██╔══██╗██║░░╚██╗\n" +
+                                    "██║░░░░░╚██████╔╝██████╦╝╚██████╔╝\n" +
+                                    "╚═╝░░░░░░╚═════╝░╚═════╝░░╚═════╝░\n"+
+                            "-------------OniXheat bypass MODE-----------\n" +
+                            "  █▀▀ █▀█ █▄░█ █▄░█ █▀▀ █▀▀ ▀█▀ █▀▀ █▀▄\n" +
+                            "  █▄▄ █▄█ █░▀█ █░▀█ ██▄ █▄▄ ░█░ ██▄ █▄▀\"'"));
+                    Rules.Pubg();
                 } else {
                     setValue(String.valueOf(isBox.getText()), isBox.isChecked());
                     SettingValue(1, isBox.isChecked());
                     baca = false;
-                    tv.setText("Output :"+"\n"+runAsRoot(daemonPath + " disconect"));
+                    runAsRoot("pkill " + " pro"+bin );
+                    tv.setText("----DͩIͥS͛CͨOͦNNEͤCͨᴛⷮEͤD-----\nͩ" +
+                            "░▐█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█▄☆\n" +
+                            "░███████████████████████\n" +
+                            "░▓▓▓▓▓▓▓▓▓▓▓▓██▓▓▓▓▓▓▓▓◤\n" +
+                            "╬▀░▐▓▓▓▓▓▓▌▀█░░░█▀░\n" +
+                            "▒░░▓▓▓▓▓▓█▄▄▄▄▄█▀╬░\n" +
+                            "░░█▓▓▓▓▓▌░▒▒▒▒▒▒▒▒▒\n" +
+                            "░▐█▓▓▓▓▓░░▒▒▒▒▒▒▒▒▒\n" +
+                            "░▐██████▌╬░▒▒▒▒▒▒▒▒\n");
+                    Rules.Reset();
                 }
             }
         });
@@ -395,27 +433,25 @@ public class FloatLogo extends Service implements View.OnClickListener {
         {
         }
         if ( MainActivity.is64) {
+            binary = getFilesDir().toString()+"/"+"pro64";
             bin="64";
         }else if (MainActivity.is32){
+            binary = getFilesDir().toString()+"/"+"pro32";
             bin="32";
         }
         daemonPath =getFilesDir().toString()+"/"+script;
-
         try{
-                Runtime.getRuntime().exec("chmod 777 "+ binary);
                 Runtime.getRuntime().exec("chmod 777 "+ daemonPath);
         }
         catch (IOException e)
         {
         }
-
     }
 
     public native void SettingValue(int setting_code, boolean value);
 }
 
 class SingleTapConfirm extends GestureDetector.SimpleOnGestureListener {
-
     @Override
     public boolean onSingleTapUp(MotionEvent event) {
         return true;

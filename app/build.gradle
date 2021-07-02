@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.oniversal.proxcrypt32"
+        applicationId "com.oniversal.pro32"
         minSdkVersion 28
         targetSdkVersion 30
         versionCode 1
